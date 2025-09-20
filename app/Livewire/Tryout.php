@@ -114,7 +114,7 @@ class Tryout extends Component
             $startedAt = strtotime($this->Exam->started_at);
             
             $sisaWaktu = $now - $startedAt;
-           
+          
             if ($sisaWaktu < 0) {
                 $this->timeLeft = 0;
             } else {

@@ -59,13 +59,14 @@ class ExamsResource extends Resource
                 SoftDeletingScope::class,
             ]);
         $role=Auth::user()->roles->first()->name;
-     
+        
         if($role=="participant"){
             return $query->whereHas('participant', function ($query) {
                 $query->where('user_id', Auth::user()->id);
             });
+           
         }
-
+        
         if($role=="assessor"){
             return $query->whereHas('assessor', function ($query) {
                 $query->where('user_id', Auth::user()->id);
@@ -76,5 +77,6 @@ class ExamsResource extends Resource
        
         return $query;
     }
+ 
    
 }

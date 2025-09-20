@@ -13,6 +13,7 @@ use App\Filament\Resources\Exams\ExamsResource;
 
 class ExamsTable
 {
+    
     public static function configure(Table $table): Table
     {
         return $table
@@ -22,6 +23,8 @@ class ExamsTable
                 TextColumn::make('package.name'),
                 TextColumn::make('started_at')
                     ->default('Not Started'),
+                TextColumn::make('total_score')
+                    ->default('Not Graded'),
             ])
             ->filters([
                 //
@@ -32,11 +35,13 @@ class ExamsTable
                     ->icon('heroicon-o-play')
                     ->color('success')
                     ->url(function ($record) {
+                        
                        return route('tryout.page', ['id' => $record->slug]);
-                    })
+                    })->openUrlInNewTab(true)
                     ->visible(function ($record) {
                       /** @var \App\Models\User $user */
-                        return $record->finish_at == null && Auth::user()->hasRole('Participant');
+                     
+                        return $record->finish_at == null && Auth::user()->hasRole('participant');
                     }),
                 //EditAction::make(),
             ])
