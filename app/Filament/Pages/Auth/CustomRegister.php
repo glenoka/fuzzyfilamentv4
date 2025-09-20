@@ -222,7 +222,7 @@ class CustomRegister extends Register
             'email' => $data['email'],
             'password' => $data['password'], // Sudah di-hash oleh Filament
         ]);
-
+ 
         // 2. Simpan ke tabel participants
         $participant = Participant::create([
             'user_id'        => $user->id,
@@ -240,7 +240,7 @@ class CustomRegister extends Register
             'image'          => $data['image'],
             'status'         => 'active',
         ]);
-
+$participant->user->assignRole('participant');
         // 3. Simpan ke tabel formation_selections
         Formation_Selection::create([
             'formation_id'  => $data['formation_id'],
