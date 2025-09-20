@@ -49,7 +49,6 @@ class ExamsResource extends Resource
         return [
             'index' => ListExams::route('/'),
             'create' => CreateExams::route('/create'),
-            'tryout' => Tryout::route('/tryout/{record}'),
             'edit' => EditExams::route('/{record}/edit'),
         ];
     }

@@ -25,14 +25,14 @@ class Tryout extends Component
     public $participant_id;
     public $criteria;
     
-    public function mount(Exam $exam){
-      
-        $this->Exam=Exam::where('slug', $exam->slug)->first();
+    public function mount($id){
+        $slug=$id;
+        $this->Exam=Exam::where('slug', $slug)->first();
         $this->participant_id = $this->Exam->participant_id;
        
         if($this->Exam->started_at==null){
             $startedAt = now();
-            Exam::where('slug',$exam->slug)->update([
+            Exam::where('slug',$slug)->update([
                 'started_at' => $startedAt,
             ]);
             // Refresh the model instance
@@ -79,6 +79,7 @@ class Tryout extends Component
 
     public function goToQuestion($question_id)
     {
+       
 
         $this->currentPackageQuestion = $this->Questions->where('question_id', $question_id)->first();
         $this->calculateTimeLeft();
@@ -111,14 +112,15 @@ class Tryout extends Component
         } else {
             $now = time();
             $startedAt = strtotime($this->Exam->started_at);
-    
+            
             $sisaWaktu = $now - $startedAt;
-      
+           
             if ($sisaWaktu < 0) {
                 $this->timeLeft = 0;
             } else {
                 $this->timeLeft = max(0, ($this->Exam->duration*60) - $sisaWaktu);
             }
+              
         }
 
        
@@ -158,6 +160,7 @@ class Tryout extends Component
     }
     public function render()
     {
-        return view('livewire.tryout');
+        return view('livewire.tryout')
+        ->layout('components.layouts.tryoutpage');
     }
 }

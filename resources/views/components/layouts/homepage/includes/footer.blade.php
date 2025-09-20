@@ -9,7 +9,8 @@
                         <img src="{{ asset('images/logo_pemkab.png') }}" alt="Logo Kabupaten Gianyar" class="h-16">
                     </a>
                     <div class="text-center md:text-left">
-                        <h4 class="text-white text-lg font-semibold mb-2">Sistem Seleksi Pegawai</h4>
+                        <h4 class="text-white text-lg font-semibold mb-2">SIMADE GIANYAR</h4>
+                         <p class="text-white text-xs mb-2">Sistem Informasi Seleksi Sumber Daya Manusia </p>
                         <p class="text-gray-400 text-sm">Kabupaten Gianyar</p>
                     </div>
                 </div>

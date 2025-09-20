@@ -32,9 +32,7 @@ class ExamsTable
                     ->icon('heroicon-o-play')
                     ->color('success')
                     ->url(function ($record) {
-                        // Panggil method getUrl() dari Resource itu sendiri
-                        // 'tryout' adalah nama kunci (key) dari array getPages()
-                        return ExamsResource::getUrl('tryout', ['record' => $record->slug]);
+                       return route('tryout.page', ['id' => $record->slug]);
                     })
                     ->visible(function ($record) {
                       /** @var \App\Models\User $user */
