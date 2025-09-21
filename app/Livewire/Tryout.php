@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Exam;
 use App\Models\Package;
 use Livewire\Component;
+use App\Models\Criteria;
 use App\Models\FuzzyScore;
 use App\Models\Exam_Answer;
 use App\Models\Question_Option;
@@ -129,12 +130,27 @@ class Tryout extends Component
     
     public function submit()
     {
-        //save total score
+        //hitung total score
         $totalScore=Exam_Answer::where('exam_id', $this->Exam->id)->sum('score');
-        $this->Exam->update(['total_score' => $totalScore*10]);
+
+        //cari jumlah max score di package
+        //lalu hitung jumlah benar/total maximal score *100
+        //maximal score diambil dari cretaeria max_score_question*jumlah soal
+
+        
+        $ExamDetail = Exam_Answer::where('exam_id', $this->Exam->id)->first();
+        $ExamCount=Exam_Answer::where('exam_id', $this->Exam->id)->count();
+        $package = $ExamDetail->exam->package;
+        $criteria=Criteria::find($package->criteria_id);
+
+        $maxScorePackage=$criteria->max_score_question*$ExamCount;
+       $finalScore=($totalScore/$maxScorePackage)*100;
+       
+
+        $this->Exam->update(['total_score' => $finalScore]);
 
         $converter = new FuzzyScoreConvert();
-        $conversion = $converter->convertToFuzzyValue($totalScore*10);//kali 10 ini sementara karen soal cuma 10
+        $conversion = $converter->convertToFuzzyValue($finalScore);//kali 10 ini sementara karen soal cuma 10
     
         $getFormation=Formation_Selection::where('participant_id', $this->participant_id )->first();
         FuzzyScore::updateOrCreate([
@@ -143,7 +159,7 @@ class Tryout extends Component
             'participant_id' =>  $this->participant_id ,
             'criteria_id' => $this->examQuestion->criteria_id, // ID dari criteria
         ],[
-            'score' => $totalScore*10,
+            'score' => $finalScore,
             'formation_id' => $getFormation->formation_id,
             'score_fuzzy' => $conversion,
         ]);

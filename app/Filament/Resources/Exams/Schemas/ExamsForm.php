@@ -7,6 +7,7 @@ use Filament\Schemas\Schema;
 use App\Models\Formation_Selection;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 
@@ -28,23 +29,26 @@ class ExamsForm
                             $set('duration', $package->duration);
                         }
                     })->required(),
-                Select::make('participant_id')
-                    ->label('Select Participant')
-                    ->options(function (Get $get) {
-                        $packageId = $get('package_id');
-        
-                        if (!$packageId) {
-                            return [];
-                        }
-                        $package = Package::find($packageId);
-                        $formationId = $package->formation_id;
+                Select::make('participant_ids') // GANTI NAMA FIELD DI SINI
+            ->label('Select Participants (Bisa Pilih Banyak)')
+            ->multiple() // Tetap gunakan multiple
+            ->options(function (Get $get) {
+                // Logika untuk mengambil options tetap sama
+                $packageId = $get('package_id');
+                if (!$packageId) {
+                    return [];
+                }
+                $package = Package::find($packageId);
+                $formationId = $package->formation_id;
 
-                        return Formation_Selection::with('participant')
-                            ->where('status', 'accepted')
-                            ->where('formation_id', $formationId)
-                            ->get()
-                            ->pluck('participant.name', 'participant.id');
-                    })->required(),
+                return Formation_Selection::with('participant')
+                    ->where('status', 'accepted')
+                    ->where('formation_id', $formationId)
+                    ->get()
+                    ->pluck('participant.name', 'participant_id'); // Pastikan Anda pluck 'participant_id'
+            })
+            ->required(),
+
                 Select::make('assessor_id')
                     ->label('Select Assessor')
                     ->relationship('assessor', 'name')

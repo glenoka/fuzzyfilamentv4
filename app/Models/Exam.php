@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -64,6 +65,7 @@ class Exam extends Model
     {
         return $this->belongsTo(Participant::class);
     }
+  
     public function assessor()
     {
         return $this->belongsTo(Assessor::class);

@@ -18,7 +18,10 @@ class ExamsTable
     {
         return $table
             ->columns([
-                TextColumn::make('participant.name'),
+                TextColumn::make('participant.name')
+                    ->label('Participant Name')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('assessor.name'),
                 TextColumn::make('package.name'),
                 TextColumn::make('started_at')

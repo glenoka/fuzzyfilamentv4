@@ -54,10 +54,7 @@ class ExamsResource extends Resource
     }
      public static function getEloquentQuery(): Builder
     {
-        $query= parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+         $query = parent::getEloquentQuery();
         $role=Auth::user()->roles->first()->name;
         
         if($role=="participant"){
