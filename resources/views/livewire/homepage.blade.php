@@ -9,7 +9,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <!-- Text Content -->
                 <div class="order-2 md:order-1 mt-12 md:mt-0">
-                    <h4 class="lg:text-3xl text-2xl lg:leading-snug leading-normal font-bold mb-7 text-[#f54900] font-['Poppins'] drop-shadow-lg">
+                    <h4 class="text-2xl lg:leading-snug leading-normal font-bold mb-7 text-[#f54900] font-['Poppins'] drop-shadow-lg">
     Sistem Informasi Seleksi Sumber Daya Manusia Desa<br> Kabupaten Gianyar
 </h4>
 

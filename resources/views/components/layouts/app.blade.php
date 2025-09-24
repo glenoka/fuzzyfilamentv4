@@ -22,11 +22,12 @@
         <link href="{{ asset('assets/libs/@mdi/font/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
         @vite('resources/css/apps.css')
         <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}">
+        
 
     </head>
     
     <body class="font-rubik text-base text-slate-900">
-N
+
         <!-- Main Content -->
         <div class="content">
             {{$slot}}        
