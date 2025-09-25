@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\User;
 use App\Models\Criteria;
 use Filament\Pages\Page;
 use App\Models\Formation;
@@ -10,17 +11,20 @@ use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\DB;
 use App\Models\Formation_Selection;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Concerns\InteractsWithTable; 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Tables\Contracts\HasTable; // <-- 1. IMPORT HasTable
 
 class CalculateRank extends Page implements HasTable
 {
     protected string $view = 'filament.pages.calculate-rank';
     use InteractsWithTable;
+    use HasPageShield;
 
   public function table(Table $table): Table
 {
