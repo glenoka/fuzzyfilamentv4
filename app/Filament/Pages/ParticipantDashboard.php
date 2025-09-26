@@ -7,6 +7,7 @@ use Filament\Pages\Page;
 use App\Models\Districts;
 use App\Models\Participant;
 use Filament\Schemas\Schema;
+use Livewire\WithFileUploads;
 use Filament\Infolists\Infolist;
 use Filament\Support\Enums\TextSize;
 use Illuminate\Support\Facades\Auth;
@@ -32,24 +33,26 @@ class ParticipantDashboard extends Page implements HasSchemas
     protected string $view = 'filament.pages.participant-dashboard';
     public ?array $data = [];
     public $user;
+  
     public $participant;
-   
+
     use InteractsWithSchemas;
-    
+    use WithFileUploads;
+
     public function mount(): void
     {
-       
+
         $this->user = Auth::user()->id;
         $this->participant = Participant::where('user_id', $this->user)->with('user')->first();
         // Set flag isEmpty menjadi true jika participant kosong
-   
-   
+
+
 
         $this->form->fill([
             'name' => $this->participant->name,
             'nik' => $this->participant->nik,
             'place_of_birth' => $this->participant->place_of_birth,
-            'date_of_birth' =>$this->participant->date_of_birth,
+            'date_of_birth' => $this->participant->date_of_birth,
             'gender' => $this->participant->gender,
             'religion' => $this->participant->religion,
             'village_id' => $this->participant->village_id,
@@ -59,14 +62,13 @@ class ParticipantDashboard extends Page implements HasSchemas
             'image' => $this->participant->image,
             'user_id' => $this->participant->user_id,
             'status' => $this->participant->status,
-            'username'=>$this->participant->user->username
+            'username' => $this->participant->user->username
         ]);
-    
     }
-  public static function form(Schema $schema): Schema
+    public static function form(Schema $schema): Schema
     {
 
-       return $schema
+        return $schema
             ->components([
                 TextInput::make('name'),
                 TextInput::make('nik'),
@@ -98,7 +100,7 @@ class ParticipantDashboard extends Page implements HasSchemas
 
                 Select::make('village_id')
                     ->label('Village')
-                 ->default(fn () => $this->participant?->village_id)
+                    ->default(fn() => $this->participant?->village_id)
                     ->options(function (Get $get) {
                         $districtId = $get('district_id');
 
@@ -121,24 +123,26 @@ class ParticipantDashboard extends Page implements HasSchemas
                             }
                         }
                     }),
-                    TextInput::make('telp'),
-                    TextInput::make('email'),
-                    Textarea::make('address'),
-                    FileUpload::make('image')
-    ->label('Foto Profil')
-    ->image() // Memvalidasi file sebagai gambar
-    ->directory('participant') // 👈 Ini kuncinya! Simpan di 'storage/app/public/participant-images'
-    ->disk('public'), // Opsional, tapi praktik yang baik
+                TextInput::make('telp'),
+                TextInput::make('email'),
+                Textarea::make('address'),
+                FileUpload::make('image')
+                    ->image()
+                     ->disk('public') // tambahkan ini
+                    ->directory('participant')
+                    ->columnSpanFull()
+                    ->maxSize(1120) // dalam KB
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg'])
+                    ->helperText('Max size: 1MB, Format: JPEG, PNG, JPG'),
+                TextInput::make('username')->disabled(),
+                TextInput::make('user.password')->placeholder('Kosongkan jika tidak dirubah'),
 
-                    TextInput::make('username')->disabled(),
-                    TextInput::make('user.password')->placeholder('Kosongkan jika tidak dirubah'),
-                    
             ])->statePath('data');
     }
     public function participantInfo(Schema $schema): Schema
 
     {
-       return $schema
+        return $schema
             ->record($this->participant)
             ->components([
                 Section::make('Profile Information')
@@ -213,44 +217,43 @@ class ParticipantDashboard extends Page implements HasSchemas
 
     public function edit(): void
     {
-        
+
         $validateData = $this->form->getState();
+
+       
+        
+      
         $this->participant->update([
             'name' => $validateData['name'],
-            'nik'=>$validateData['nik'],
-            'gender' =>$validateData['gender'],
-            'religion' =>$validateData['religion'],
-            'village_id'=>$validateData['village_id'],
-            'telp'=>$validateData['telp'],
-            'place_of_birth'=>$validateData['place_of_birth'],
-            'date_of_birth'=>$validateData['date_of_birth'],
-            'address'=>$validateData['address'],
-            'email'=>$validateData['email'],
-            'image'=>$validateData['image'] ?? $this->participant->image,
+            'nik' => $validateData['nik'],
+            'gender' => $validateData['gender'],
+            'religion' => $validateData['religion'],
+            'village_id' => $validateData['village_id'],
+            'telp' => $validateData['telp'],
+            'place_of_birth' => $validateData['place_of_birth'],
+            'date_of_birth' => $validateData['date_of_birth'],
+            'address' => $validateData['address'],
+            'email' => $validateData['email'],
+            'image' => $validateData['image'],
 
         ]);
-        $this->participant->name=$validateData['name'];
+        $this->participant->name = $validateData['name'];
         if (!empty($validateData['password'])) {
             $this->user->password = Hash::make($validateData['password']);
         }
 
-        // if(isset($validateData['image'])){
-        //     if($this->participant->image){
-        //         Storage::delete($this->participant->image);
-        //     }
-        //     $this->participant->image=$validateData['image'];
-        // }
-
-        if (isset($validateData['image'])) {
-        // Hapus gambar lama jika ada
-        if ($this->participant->image) {
+         if (isset($validatedData['image'])) {
+        // Jika ada file lama dan diganti, hapus file lama
+        if ($this->participant->image && $this->participant->image !== $validatedData['image']) {
             Storage::disk('public')->delete($this->participant->image);
         }
     }
+
+       
         Notification::make('update')
-        ->title('Data terupdate')
-        ->success()
-        ->body('Data anda sudah terupdate')
-        ->send();
+            ->title('Data terupdate')
+            ->success()
+            ->body('Data anda sudah terupdate')
+            ->send();
     }
 }

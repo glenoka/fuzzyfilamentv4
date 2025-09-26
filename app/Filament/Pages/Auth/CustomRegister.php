@@ -27,17 +27,20 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Notifications\Notification;
 use Illuminate\Validation\Rules\Password;
 
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Livewire\WithFileUploads;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Selection;
 
 class CustomRegister extends Register
 {
-
+    use WithFileUploads;
      public ?array $data = [];
+     public $image;
 
     /**
      * @var class-string<Model>
@@ -118,15 +121,13 @@ class CustomRegister extends Register
                                 ->pluck('name', 'id');
                         })
                         ->searchable(),
-                    FileUpload::make('image')->image()
-                        ->directory('participant')->columnSpanFull()
-                        ->deleteUploadedFileUsing(
-                            function ($state) {
-                                if ($state) {
-                                    Storage::disk('public')->delete($state);
-                                }
-                            }
-                        ),
+                   FileUpload::make('image')
+                 ->image()
+                ->directory('participant')
+                ->columnSpanFull()
+                ->maxSize(1120) // dalam KB
+                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg'])
+                ->helperText('Max size: 1MB, Format: JPEG, PNG, JPG'),
                     TextInput::make('username')->required()
                         ->label('Username')
                         ->maxLength(16)
@@ -222,6 +223,14 @@ class CustomRegister extends Register
             'email' => $data['email'],
             'password' => $data['password'], // Sudah di-hash oleh Filament
         ]);
+        $imagePath = null;
+          if ($this->image) {
+        // Generate nama file unik
+        $fileName = time() . '_' . $this->image->getClientOriginalName();
+        
+        // Simpan file ke storage
+        $imagePath = $this->image->storeAs('participant', $fileName, 'public');
+          }
  
         // 2. Simpan ke tabel participants
         $participant = Participant::create([
@@ -237,7 +246,7 @@ class CustomRegister extends Register
             'address'        => $data['address'],
             'district_id'    => $data['district_id'],
             'village_id'     => $data['village_id'],
-            'image'          => $data['image'],
+            'image'          => $data['image'] ,
             'status'         => 'active',
         ]);
 $participant->user->assignRole('participant');
@@ -247,7 +256,11 @@ $participant->user->assignRole('participant');
             'participant_id'=> $participant->id,
             'status'        => 'progress',
         ]);
-
+        Notification::make()
+            ->title('Registrasi Berhasil! Silakan Login')
+            ->success()
+            ->send();
+        
         return $user; // Filament butuh Model user untuk login langsung
     });
 }
