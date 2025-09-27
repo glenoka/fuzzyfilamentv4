@@ -4,15 +4,21 @@ namespace App\Filament\Widgets;
 
 use App\Models\Formation;
 use App\Models\Participant;
-use Filament\Widgets\Widget;
+use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
-class ParticipantOverview extends Widget
+class ParticipantOverview extends StatsOverviewWidget
 {
-    protected string $view = 'filament.widgets.participant-overview';
-     protected function getStats(): array
+    protected static ?int $sort = -2;
+    protected static bool $isLazy = false;
+    /**
+     * @var view-string
+     */
+    //protected string $view = 'filament-panels::widgets.participant-overview';
+    
+    protected function getStats(): array
     {
-        return [
+         return [
             Stat::make('Jumlah Peserta', Participant::query()->count())
             ->description('Jumlah Total Peserta')
             ->descriptionIcon('heroicon-m-arrow-trending-up')

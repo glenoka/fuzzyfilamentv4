@@ -8,6 +8,7 @@ use Filament\Pages\Page;
 use Filament\Tables\Table;
 use App\Models\Participant;
 use App\Models\Formation_Selection;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Columns\TextColumn;
 
@@ -21,6 +22,7 @@ class FormationRank extends Page implements HasTable
  protected static ?string $title = 'Formation Rank';
 
     use InteractsWithTable;
+    use HasPageShield;
 
     public ?array $data=[];
     public $participant;

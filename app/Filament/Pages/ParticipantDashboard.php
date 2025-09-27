@@ -6,6 +6,8 @@ use App\Models\Village;
 use Filament\Pages\Page;
 use App\Models\Districts;
 use App\Models\Participant;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Schemas\Schema;
 use Livewire\WithFileUploads;
 use Filament\Infolists\Infolist;
@@ -38,6 +40,7 @@ class ParticipantDashboard extends Page implements HasSchemas
 
     use InteractsWithSchemas;
     use WithFileUploads;
+    use HasPageShield;
 
     public function mount(): void
     {
