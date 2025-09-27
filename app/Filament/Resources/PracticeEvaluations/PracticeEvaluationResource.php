@@ -2,17 +2,19 @@
 
 namespace App\Filament\Resources\PracticeEvaluations;
 
-use App\Filament\Resources\PracticeEvaluations\Pages\CreatePracticeEvaluation;
+use BackedEnum;
+use App\Models\Evaluation;
+use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Resources\Resource;
+use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PracticeEvaluations\Pages\EditPracticeEvaluation;
 use App\Filament\Resources\PracticeEvaluations\Pages\ListPracticeEvaluations;
+use App\Filament\Resources\PracticeEvaluations\Pages\CreatePracticeEvaluation;
 use App\Filament\Resources\PracticeEvaluations\Schemas\PracticeEvaluationForm;
 use App\Filament\Resources\PracticeEvaluations\Tables\PracticeEvaluationsTable;
-use App\Models\Evaluation;
-use BackedEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
 
 class PracticeEvaluationResource extends Resource
 {
@@ -48,5 +50,18 @@ class PracticeEvaluationResource extends Resource
             'edit' => EditPracticeEvaluation::route('/{record}/edit'),
 
         ];
+    }
+    public static function getEloquentQuery(): Builder
+    {
+        $user = Auth::user();
+        
+        // Jika user memiliki relasi assessor
+        if ($user->assessor) {
+            return parent::getEloquentQuery()
+                ->where('assessor_id', $user->assessor->id);
+        }
+        
+        // Jika user tidak memiliki assessor, return query kosong
+        return parent::getEloquentQuery()->whereNull('assessor_id');
     }
 }
