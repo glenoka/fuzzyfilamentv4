@@ -15,14 +15,18 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class FormationResource extends Resource
 {
     protected static ?string $model = Formation::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Briefcase;
 
     protected static ?string $recordTitleAttribute = 'name';
+        protected static ?string $navigationLabel = 'Data Formasi';
+    protected static ?string $pluralModelLabel = 'List Formasi';
+    protected static string | UnitEnum | null $navigationGroup = 'Formasi';
 
     public static function form(Schema $schema): Schema
     {

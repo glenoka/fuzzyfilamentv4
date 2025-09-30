@@ -20,9 +20,10 @@ class PracticeEvaluationResource extends Resource
 {
     protected static ?string $model = Evaluation::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Lifebuoy;
 
     protected static ?string $recordTitleAttribute = 'name';
+        protected static ?string $navigationLabel = 'Data Penilaian Praktik';
 
     public static function form(Schema $schema): Schema
     {

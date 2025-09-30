@@ -29,10 +29,15 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Infolists\Components\TextEntry\TextEntrySize;
+use BackedEnum;
 
 class ParticipantDashboard extends Page implements HasSchemas
 {
     protected string $view = 'filament.pages.participant-dashboard';
+    protected static ?string $title = 'Halaman Peserta';
+      protected static ?string $navigationLabel = 'Home';
+    protected static ?int $navigationSort = -2;
+   protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-home';
     public ?array $data = [];
     public $user;
   

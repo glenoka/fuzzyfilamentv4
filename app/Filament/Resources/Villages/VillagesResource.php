@@ -13,14 +13,18 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class VillagesResource extends Resource
 {
     protected static ?string $model = Village::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::BuildingOffice;
 
     protected static ?string $recordTitleAttribute = 'name';
+        protected static ?string $navigationLabel = 'Data Desa/Kelurahan';
+         protected static string | UnitEnum | null $navigationGroup = 'Wilayah';
+    protected static ?string $pluralModelLabel = 'List Desa/Kelurahan';
 
     public static function form(Schema $schema): Schema
     {

@@ -19,10 +19,17 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Concerns\InteractsWithTable; 
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Tables\Contracts\HasTable; // <-- 1. IMPORT HasTable
+use BackedEnum;
+
 
 class CalculateRank extends Page implements HasTable
 {
     protected string $view = 'filament.pages.calculate-rank';
+    protected static ?string $title = 'Kalkulasi Peringkat';
+      protected static ?string $navigationLabel = 'Kalkulasi Peringkat';
+    
+
+protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-calculator';
     use InteractsWithTable;
     use HasPageShield;
 

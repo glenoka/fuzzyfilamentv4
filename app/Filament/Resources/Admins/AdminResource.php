@@ -15,14 +15,20 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class AdminResource extends Resource
 {
     protected static ?string $model = Admin::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
 
     protected static ?string $recordTitleAttribute = 'name';
+      protected static ?string $navigationLabel = 'Data Admin';
+       protected static ?string $pluralModelLabel = 'List Formasi'; 
+      protected static string | UnitEnum | null $navigationGroup = 'Data User';
+      protected static ?string $title;
+
 
     public static function form(Schema $schema): Schema
     {

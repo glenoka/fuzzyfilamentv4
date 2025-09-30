@@ -15,11 +15,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Tables\Concerns\InteractsWithTable;
+ use BackedEnum;
 
 class FormationRank extends Page implements HasTable
 {
     protected string $view = 'filament.pages.formation-rank';
- protected static ?string $title = 'Formation Rank';
+ protected static ?string $title = 'Ranking Formasi';
+   protected static ?string $navigationLabel = 'Peringkat';
+
+protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-chart-bar';
 
     use InteractsWithTable;
     use HasPageShield;

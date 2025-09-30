@@ -13,14 +13,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class QuestionsResource extends Resource
 {
     protected static ?string $model = Question::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ClipboardDocumentList;
 
     protected static ?string $recordTitleAttribute = 'name';
+     protected static ?string $navigationLabel = 'Data Soal';
+    protected static ?string $pluralModelLabel = 'List Soal';
+    protected static string | UnitEnum | null $navigationGroup = 'Management Soal';
+    
 
     public static function form(Schema $schema): Schema
     {

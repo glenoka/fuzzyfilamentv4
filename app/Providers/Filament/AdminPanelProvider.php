@@ -36,6 +36,10 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->brandName('SIMADE GIANYAR')
+            ->brandLogoHeight('2rem')
+            ->favicon(asset('images/logo_pemkab.png'))
+            ->brandLogo(asset('images/logo_pemkab.png'))
             ->collapsedSidebarWidth('20')
             ->sidebarCollapsibleOnDesktop(true)
             ->databaseTransactions(true)

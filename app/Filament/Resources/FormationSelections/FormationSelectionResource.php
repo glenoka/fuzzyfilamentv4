@@ -15,14 +15,18 @@ use App\Filament\Resources\FormationSelections\Pages\CreateFormationSelection;
 use App\Filament\Resources\FormationSelections\Schemas\FormationSelectionForm;
 use App\Filament\Resources\FormationSelections\Tables\FormationSelectionsTable;
 use App\Filament\Resources\FormationSelections\Pages\DetailFormationSelection;
+use UnitEnum;
 
 class FormationSelectionResource extends Resource
 {
     protected static ?string $model = Formation_Selection::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Bookmark;
 
     protected static ?string $recordTitleAttribute = 'name';
+        protected static ?string $navigationLabel = 'Data Pilihan Formasi';
+    protected static ?string $pluralModelLabel = 'List Pilihan Formasi';
+    protected static string | UnitEnum | null $navigationGroup = 'Formasi';
 
     public static function form(Schema $schema): Schema
     {

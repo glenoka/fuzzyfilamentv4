@@ -18,14 +18,18 @@ use App\Filament\Resources\Exams\Pages\CreateExams;
 use App\Filament\Resources\Exams\Schemas\ExamsForm;
 use App\Filament\Resources\Exams\Tables\ExamsTable;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class ExamsResource extends Resource
 {
     protected static ?string $model = Exam::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ClipboardDocumentCheck;
 
     protected static ?string $recordTitleAttribute = 'name';
+        protected static ?string $navigationLabel = 'Data Ujian';
+    protected static ?string $pluralModelLabel = 'List Ujian';
+    protected static string | UnitEnum | null $navigationGroup = 'Data Ujian';
 
     public static function form(Schema $schema): Schema
     {

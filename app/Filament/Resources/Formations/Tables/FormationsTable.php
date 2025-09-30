@@ -18,7 +18,9 @@ class FormationsTable
         return $table
             ->columns([
                  TextColumn::make('name'),
-                TextColumn::make('Participants'),
+               TextColumn::make('selections_count')
+                ->counts('selections') // Anda bisa juga menggunakan ->label() di sini
+                ->label('Jumlah Peserta'),
             ])
             ->filters([
                 TrashedFilter::make(),
