@@ -71,13 +71,9 @@ class CustomRegister extends Register
             ->description('Silakan isi informasi pribadi Anda dengan benar.')
               ->schema([
                TextInput::make('name')
-                        ->reactive()
-                        // Memperbaiki copy email ke field email user
-                        ->afterStateUpdated(function (Set $set, ?string $state) {
-                            if ($state) {
-                                $set('user.name', $state);
-                            }
-                        }),
+                        ->label('Full Name')
+                        ->required()
+                        ->maxLength(255),
                     TextInput::make('nik')->required()
                         ->label('NIK')
                         ->maxLength(16)
