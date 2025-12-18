@@ -4,7 +4,7 @@ namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
 use Filament\Widgets\AccountWidget;
-use App\Filament\Widgets\Participantoverview;
+use App\Filament\Widgets\ParticipantOverview;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use BezhanSalleh\FilamentShield\Traits\HasShieldFormComponents;
  use BackedEnum;
