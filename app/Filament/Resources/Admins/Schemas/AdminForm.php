@@ -24,6 +24,7 @@ class AdminForm
                 ->description('Profile Data Admin ')
                 ->schema([
                     TextInput::make('name')
+                    ->label('Nama Admin')
                     ->live(onBlur: true)
                         ->required()
                         // Memperbaiki copy email ke field email user
@@ -46,14 +47,17 @@ class AdminForm
 
                     }),
                     TextInput::make('place_of_birth')
+                    ->label('Tempat Lahir')
                     ->required(),
-                    DatePicker::make('date_of_birth')->required(),
+                    DatePicker::make('date_of_birth')->required()->label('Tanggal Lahir'),
                     Select::make('gender')
+                    ->label('Jenis Kelamin')
                         ->options([
                             'male' => 'Laki-laki',
                             'female' => 'Perempuan',
                         ])->required(),
                     Select::make('religion')
+                    ->label('Agama')
                         ->options([
                             'islam' => 'Islam',
                             'kristen' => 'Kristen',
@@ -64,8 +68,10 @@ class AdminForm
                             'lainnya' => 'Lainnya',
                         ])->required(),
                     Textarea::make('address')
+                    ->label('Alamat Lengkap')
                     ->required(),
                     TextInput::make('email')
+                    ->label('Email Admin')
                     ->required()
                     ->live(onBlur: true)
                         // Memperbaiki copy email ke field email user
@@ -76,12 +82,15 @@ class AdminForm
                         }),
 
                     TextInput::make('telp')->required()
+                    ->label('No. Telp')
                     ->tel(),
                     Select::make('village_id')
+                    ->label('Desa')
                         ->relationship('village', 'name')
                         ->searchable()
                         ->required(),
                     TextInput::make('status')
+                    ->label('Status')
                         ->default('active')
                         ->disabled(),
                     FileUpload::make('image')->image()
@@ -104,6 +113,7 @@ class AdminForm
                     TextInput::make('user.name')->disabled(),
                     TextInput::make('username')->disabled(fn(string $context) => $context === 'update'),
                     TextInput::make('user.email')
+                        ->label('Email User')
                         ->email()
                         ->disabled(),
                     TextInput::make('password')

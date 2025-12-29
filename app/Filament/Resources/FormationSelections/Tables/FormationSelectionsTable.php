@@ -18,10 +18,11 @@ class FormationSelectionsTable
     {
         return $table
             ->columns([
-                 TextColumn::make('formation.name'),
-               TextColumn::make('participant.name'),
+                 TextColumn::make('formation.name')->label('Formasi'),
+               TextColumn::make('participant.name')->label('Peserta'),
                TextColumn::make('status')
                ->badge()
+               ->label('Status')
                ->color(fn (string $state): string => match ($state) {
                    'progress' => 'warning',
                    'accepted' => 'success',

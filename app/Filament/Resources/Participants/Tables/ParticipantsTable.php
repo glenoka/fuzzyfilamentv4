@@ -18,12 +18,12 @@ class ParticipantsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name') ->searchable(),
+                TextColumn::make('name') ->searchable()->label('Nama Lengkap'),
             TextColumn::make('email') ->copyable()->copyMessage('Email address copied')
             ->copyMessageDuration(1500),
-            TextColumn::make('telp'),
-            TextColumn::make('status') ->searchable(),
-            ImageColumn::make('image'),
+            TextColumn::make('telp')->label('No. Telp')->searchable(),
+            TextColumn::make('status') ->label('status')->searchable(),
+            ImageColumn::make('image')->label('Foto'),
             ])
             ->filters([
                 TrashedFilter::make(),

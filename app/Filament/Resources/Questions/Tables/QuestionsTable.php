@@ -14,8 +14,10 @@ class QuestionsTable
     {
         return $table
             ->columns([
-                  TextColumn::make('question'),
-                TextColumn::make('question_type'),
+                  TextColumn::make('question')
+                  ->label('Pertanyaan'),
+                TextColumn::make('question_type')
+                ->label('Tipe Pertanyaan'),
             ])
             ->filters([
                 //

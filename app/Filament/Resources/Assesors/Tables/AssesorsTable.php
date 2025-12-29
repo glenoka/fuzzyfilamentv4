@@ -15,11 +15,16 @@ class AssesorsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email_assessor'),
-                TextColumn::make('telp'),
-                TextColumn::make('status'),
-                ImageColumn::make('image'),
+                TextColumn::make('name')
+                ->label('Nama Assesor'),
+                TextColumn::make('email_assessor')
+                ->label('Email Assesor'),
+                TextColumn::make('telp')
+                ->label('No. Telp'),
+                TextColumn::make('status')
+                ->label('Status'),
+                ImageColumn::make('image')
+                ->label('Foto'),
             ])
             ->filters([
                 //

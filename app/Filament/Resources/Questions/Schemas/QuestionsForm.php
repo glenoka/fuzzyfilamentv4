@@ -26,6 +26,7 @@ class QuestionsForm
                 //     ->dehydrated(), //agar tetap isa disimpan ini ya
                 RichEditor::make('description'),
                 Select::make('question_type')
+                ->label('Tipe Pertanyaan')
                 ->reactive()
                 ->options([
                     'options' => 'Options',

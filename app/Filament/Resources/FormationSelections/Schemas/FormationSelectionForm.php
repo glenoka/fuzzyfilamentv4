@@ -20,7 +20,7 @@ class FormationSelectionForm
                 ->options(Formation::pluck('name', 'id'))
                 ->live(),
                 Select::make('participant_id')
-                ->label('Participant')
+                ->label('Peserta')
                 ->options(Participant::pluck('name', 'id'))
                 ->unique()
                     ->validationMessages([

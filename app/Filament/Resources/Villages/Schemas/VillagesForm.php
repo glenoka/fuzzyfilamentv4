@@ -13,8 +13,9 @@ class VillagesForm
         return $schema
             ->components([
                 TextInput::make('name')
-                ->label('Village Name'),
+                ->label('Nama Desa/Kelurahan'),
                 Select::make('district_id')
+                ->label('Kecamatan/Kota')
                 ->relationship('district', 'name')
             ]);
     }

@@ -18,7 +18,7 @@ class ExamsForm
         return $schema
             ->components([
                 Select::make('package_id')
-                    ->label('Select Package')
+                    ->label('Pilih Paket Soal')
                     ->relationship('package', 'name')
                     ->live()
                     ->afterStateUpdated(function (Set $set, ?string $state) {
@@ -30,7 +30,7 @@ class ExamsForm
                         }
                     })->required(),
                 Select::make('participant_ids') // GANTI NAMA FIELD DI SINI
-            ->label('Select Participants (Bisa Pilih Banyak)')
+            ->label('Pilih Peserta (Bisa Pilih Banyak)')
             ->multiple() // Tetap gunakan multiple
             ->options(function (Get $get) {
                 // Logika untuk mengambil options tetap sama
@@ -50,7 +50,7 @@ class ExamsForm
             ->required(),
 
                 Select::make('assessor_id')
-                    ->label('Select Assessor')
+                    ->label('Pilih Penguji')
                     ->relationship('assessor', 'name')
                     ->required(),
                 

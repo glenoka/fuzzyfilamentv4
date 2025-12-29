@@ -11,7 +11,8 @@ class DistrictsForm
     {
         return $schema
             ->components([
-                TextInput::make('name'),
+                TextInput::make('name')
+                ->label('Nama Kecamatan'),
             ]);
     }
 }

@@ -12,17 +12,19 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
 
+use function Symfony\Component\String\s;
+
 class AdminsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                 TextColumn::make('name'),
-            TextColumn::make('email'),
-            TextColumn::make('telp'),
-            TextColumn::make('status'),
-            ImageColumn::make('image'),
+                 TextColumn::make('name')->label('Nama'),
+            TextColumn::make('email')->label('Email'),
+            TextColumn::make('telp')->label('Telepon'),
+            TextColumn::make('status')->label('Status'),    
+            ImageColumn::make('image')->label('Foto Profil')->rounded(),
             ])
             ->filters([
                 TrashedFilter::make(),

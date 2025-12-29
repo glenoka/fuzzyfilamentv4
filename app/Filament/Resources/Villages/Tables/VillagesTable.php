@@ -14,8 +14,9 @@ class VillagesTable
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('district.name'),
+                TextColumn::make('name')->label('Nama Desa'),
+                TextColumn::make('district.name')
+                ->label('Kecamatan'),
             ])
             ->filters([
                 //

@@ -20,13 +20,13 @@ class FormationForm
             ->components([
                TextInput::make('name'),
                 Select::make('district_id')
-                    ->label('District')
+                    ->label('Kecamatan')
                     ->options(Districts::pluck('name', 'id'))
                     ->live()
                     ->afterStateUpdated(fn(Set $set) => $set('village_id', null)),
 
                 Select::make('village_id')->required()
-                    ->label('Village')
+                    ->label('Desa')
                     ->options(function (Get $get) {
                         $districtId = $get('district_id');
 
@@ -39,17 +39,17 @@ class FormationForm
                     })
                     ->searchable(),
                     DatePicker::make('due_date')
-                    ->label('Due Date')
+                    ->label('Waktu Berakhir')
                     ->required(),
                 TextInput::make('status')
                     ->label('Status')
                     ->required()
                     ->default('active'),
                 TextInput::make('education_level')
-                    ->label('Education Level')
+                    ->label('Tingkat Pendidikan')
                     ->required(),
                 TextInput::make('open_position')
-                    ->label('Open Position')
+                    ->label('Posisi')
                     ->required(),
                 RichEditor::make('description'),
             ]);

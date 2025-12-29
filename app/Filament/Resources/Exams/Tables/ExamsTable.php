@@ -19,22 +19,22 @@ class ExamsTable
         return $table
             ->columns([
                 TextColumn::make('participant.name')
-                    ->label('Participant Name')
+                    ->label('Nama Peserta')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('assessor.name'),
-                TextColumn::make('package.name'),
+                TextColumn::make('assessor.name')->label('Nama Penguji'),
+                TextColumn::make('package.name')->label('Nama Paket Soal'),
                 TextColumn::make('started_at')
-                    ->default('Not Started'),
+                    ->default('Belum Dimulai'),
                 TextColumn::make('total_score')
-                    ->default('Not Graded'),
+                    ->default('-'),
             ])
             ->filters([
                 //
             ])
             ->recordActions([
                 Action::make('start_test')
-                    ->label('Started')
+                    ->label('Mulai Ujian')
                     ->icon('heroicon-o-play')
                     ->color('success')
                     ->url(function ($record) {
